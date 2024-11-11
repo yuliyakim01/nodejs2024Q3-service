@@ -12,9 +12,10 @@ export class CreateUserDto {
 
 export class UpdateUserDto {
   @IsString()
-  login?: string;
+  @IsNotEmpty()
+  oldPassword: string; // Required for validation of the existing password
 
   @IsString()
-  oldPassword?: string;
-  newPassword?: string;
+  @IsNotEmpty()
+  newPassword: string; // Required for updating to the new password
 }

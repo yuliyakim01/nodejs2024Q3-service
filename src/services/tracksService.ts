@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import Track from '../models/track';
 import { CreateTrackDto, UpdateTrackDto } from '../dtos/tracksDTO';
 
@@ -12,9 +13,12 @@ export class TracksService {
   }
 
   // Find a track by ID
-  findOne(id: string): Track | undefined {
-    return this.tracks.find((track) => track.id === id);
+  findOne(id: string): Track {
+    const track = this.tracks.find((track) => track.id === id);
+    if (!track) throw new NotFoundException(`Track with ID ${id} not found`);
+    return track;
   }
+  
 
   // Create a new track
   create(createTrackDto: CreateTrackDto): Track {
@@ -42,10 +46,11 @@ export class TracksService {
 
   // Delete a track by ID
   remove(id: string): void {
-    const index = this.tracks.findIndex((track) => track.id === id);
-    if (index !== -1) {
-      this.tracks.splice(index, 1);
+    const trackIndex = this.tracks.findIndex(track => track.id === id);
+    if (trackIndex === -1) {
+      throw new NotFoundException(`Track with ID ${id} not found`);
     }
+    this.tracks.splice(trackIndex, 1);
   }
 
   // Method to clear the artistId of tracks associated with a specific artist

@@ -13,10 +13,13 @@ import { AlbumsController } from './controllers/albumsController';
 import { TracksController } from './controllers/tracksController';
 import { AlbumsService } from './services/albumsService';
 import { TracksService } from './services/tracksService';
+import { FavoritesModule } from './modules/favoritesModule';
+import { FavoritesController } from './controllers/favoritesController';
+import { FavoritesService } from './services/favoritesService';
 
 @Module({
-  imports: [UsersModule, ArtistsModule, AlbumsModule, TracksModule],
-  controllers: [AppController, UsersController, ArtistsController, AlbumsController, TracksController],
-  providers: [AppService, UsersService, ArtistsService, AlbumsService, TracksService],
+  imports: [UsersModule, ArtistsModule, AlbumsModule, TracksModule, FavoritesModule],
+  controllers: [AppController, UsersController, ArtistsController, AlbumsController, TracksController, FavoritesController],
+  providers: [AppService, UsersService, ArtistsService, AlbumsService, TracksService, FavoritesService],
 })
 export class AppModule {}

@@ -9,7 +9,7 @@ class User {
   updatedAt: number;  // timestamp of last update
 
   constructor(login: string, password: string) {
-    this.id = uuidv4();             // Generates a unique UUID for each user
+    this.id = uuidv4();  // Generates a unique UUID for each user
     this.login = login;
     this.password = password;
     this.version = 1;

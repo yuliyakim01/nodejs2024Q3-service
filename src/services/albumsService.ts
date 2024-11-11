@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import Album from '../models/album';
 import { CreateAlbumDto, UpdateAlbumDto } from '../dtos/albumsDTO';
-// import { TracksService } from '../services/tracksService';
+import { TracksService } from '../services/tracksService';
 
 @Injectable()
 export class AlbumsService {
   private albums: Album[] = [];
 
   constructor(
-    // private readonly tracksService: TracksService
+     private readonly tracksService: TracksService
   ) {}
 
   findAll(): Album[] {
@@ -54,6 +54,7 @@ export class AlbumsService {
 
     // Cascade delete: set albumId to null in associated tracks
     //this.tracksService.clearAlbumId(id);
+    this.tracksService.clearAlbumId(id);
   }
 
   clearArtistId(artistId: string): void {

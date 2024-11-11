@@ -8,7 +8,6 @@ export class UsersService {
 
   // Get all users
   findAll(): Omit<User, 'password'>[] {
-    // Exclude password from the user objects
     return this.users.map(({ password, ...user }) => user);
   }
 
@@ -31,25 +30,28 @@ export class UsersService {
   }
 
   // Update an existing user's password
-  update(id: string, updateUserDto: UpdateUserDto): Omit<User, 'password'> {
+  update(id: string, updateUserDto: UpdateUserDto): { success: boolean; user: Omit<User, 'password'> | null } {
     const user = this.users.find(user => user.id === id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
-    // Check if oldPassword matches
+  
+    if (!updateUserDto.oldPassword || !updateUserDto.newPassword) {
+      throw new BadRequestException('Both oldPassword and newPassword are required');
+    }
+  
     if (user.password !== updateUserDto.oldPassword) {
       throw new ForbiddenException('Incorrect old password');
     }
-
-    // Update password, version, and updatedAt timestamp
+  
     user.password = updateUserDto.newPassword;
     user.version += 1;
     user.updatedAt = Date.now();
-
+  
     const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+    return { success: true, user: userWithoutPassword };
   }
+  
 
   // Remove a user by ID
   remove(id: string): boolean {
