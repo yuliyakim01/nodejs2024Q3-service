@@ -53,6 +53,14 @@ export class AlbumsService {
     this.albums.splice(index, 1);
 
     // Cascade delete: set albumId to null in associated tracks
-    // this.tracksService.clearAlbumId(id);
+    //this.tracksService.clearAlbumId(id);
+  }
+
+  clearArtistId(artistId: string): void {
+    this.albums.forEach((album) => {
+      if (album.artistId === artistId) {
+        album.artistId = null;
+      }
+    });
   }
 }
