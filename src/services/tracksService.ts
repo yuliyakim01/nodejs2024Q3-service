@@ -18,7 +18,6 @@ export class TracksService {
     if (!track) throw new NotFoundException(`Track with ID ${id} not found`);
     return track;
   }
-  
 
   // Create a new track
   create(createTrackDto: CreateTrackDto): Track {
@@ -37,7 +36,8 @@ export class TracksService {
     const track = this.findOne(id);
     if (track) {
       if (updateTrackDto.name) track.name = updateTrackDto.name;
-      if (typeof updateTrackDto.duration === 'number') track.duration = updateTrackDto.duration;
+      if (typeof updateTrackDto.duration === 'number')
+        track.duration = updateTrackDto.duration;
       track.artistId = updateTrackDto.artistId ?? track.artistId;
       track.albumId = updateTrackDto.albumId ?? track.albumId;
     }
@@ -46,7 +46,7 @@ export class TracksService {
 
   // Delete a track by ID
   remove(id: string): void {
-    const trackIndex = this.tracks.findIndex(track => track.id === id);
+    const trackIndex = this.tracks.findIndex((track) => track.id === id);
     if (trackIndex === -1) {
       throw new NotFoundException(`Track with ID ${id} not found`);
     }

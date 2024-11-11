@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ForbiddenException,
+} from '@nestjs/common';
 import User from '../models/user';
 import { CreateUserDto, UpdateUserDto } from '../dtos/usersDTO';
 
@@ -13,7 +18,7 @@ export class UsersService {
 
   // Get a single user by ID
   findOne(id: string): Omit<User, 'password'> {
-    const user = this.users.find(user => user.id === id);
+    const user = this.users.find((user) => user.id === id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -30,32 +35,36 @@ export class UsersService {
   }
 
   // Update an existing user's password
-  update(id: string, updateUserDto: UpdateUserDto): { success: boolean; user: Omit<User, 'password'> | null } {
-    const user = this.users.find(user => user.id === id);
+  update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): { success: boolean; user: Omit<User, 'password'> | null } {
+    const user = this.users.find((user) => user.id === id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
-  
+
     if (!updateUserDto.oldPassword || !updateUserDto.newPassword) {
-      throw new BadRequestException('Both oldPassword and newPassword are required');
+      throw new BadRequestException(
+        'Both oldPassword and newPassword are required',
+      );
     }
-  
+
     if (user.password !== updateUserDto.oldPassword) {
       throw new ForbiddenException('Incorrect old password');
     }
-  
+
     user.password = updateUserDto.newPassword;
     user.version += 1;
     user.updatedAt = Date.now();
-  
+
     const { password, ...userWithoutPassword } = user;
     return { success: true, user: userWithoutPassword };
   }
-  
 
   // Remove a user by ID
   remove(id: string): boolean {
-    const index = this.users.findIndex(user => user.id === id);
+    const index = this.users.findIndex((user) => user.id === id);
     if (index === -1) {
       throw new NotFoundException('User not found');
     }

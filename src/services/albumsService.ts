@@ -7,9 +7,7 @@ import { TracksService } from '../services/tracksService';
 export class AlbumsService {
   private albums: Album[] = [];
 
-  constructor(
-     private readonly tracksService: TracksService
-  ) {}
+  constructor(private readonly tracksService: TracksService) {}
 
   findAll(): Album[] {
     return this.albums;

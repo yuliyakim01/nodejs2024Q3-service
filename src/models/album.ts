@@ -11,7 +11,7 @@ class Album {
     this.name = name;
     this.year = year || 0;
     this.artistId = artistId;
-  } 
+  }
 }
 
 export default Album;

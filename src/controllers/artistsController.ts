@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, BadRequestException, NotFoundException, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  BadRequestException,
+  NotFoundException,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { ArtistsService } from '../services/artistsService';
 import { CreateArtistDto, UpdateArtistDto } from '../dtos/artistsDTO';
 
@@ -42,7 +54,8 @@ export class ArtistsController {
     }
     if (
       (updateArtistDto.name && typeof updateArtistDto.name !== 'string') ||
-      (updateArtistDto.grammy !== undefined && typeof updateArtistDto.grammy !== 'boolean')
+      (updateArtistDto.grammy !== undefined &&
+        typeof updateArtistDto.grammy !== 'boolean')
     ) {
       throw new BadRequestException('Invalid update data');
     }
@@ -61,7 +74,8 @@ export class ArtistsController {
 
   // Helper method to validate UUID
   private isValidUUID(id: string): boolean {
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    const uuidRegex =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     return uuidRegex.test(id);
   }
 }

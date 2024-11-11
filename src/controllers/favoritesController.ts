@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Delete, Param, HttpCode, HttpStatus, BadRequestException, UnprocessableEntityException, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Param,
+  HttpCode,
+  HttpStatus,
+  BadRequestException,
+  UnprocessableEntityException,
+  NotFoundException,
+} from '@nestjs/common';
 import { FavoritesService } from '../services/favoritesService';
 
 @Controller('favs')
@@ -20,7 +31,8 @@ export class FavoritesController {
     try {
       return this.favoritesService.addArtist(id);
     } catch (error) {
-      if (error instanceof NotFoundException) throw new UnprocessableEntityException();
+      if (error instanceof NotFoundException)
+        throw new UnprocessableEntityException();
       throw error;
     }
   }
@@ -34,7 +46,8 @@ export class FavoritesController {
     try {
       return this.favoritesService.addAlbum(id);
     } catch (error) {
-      if (error instanceof NotFoundException) throw new UnprocessableEntityException();
+      if (error instanceof NotFoundException)
+        throw new UnprocessableEntityException();
       throw error;
     }
   }
@@ -48,7 +61,8 @@ export class FavoritesController {
     try {
       return this.favoritesService.addTrack(id);
     } catch (error) {
-      if (error instanceof NotFoundException) throw new UnprocessableEntityException();
+      if (error instanceof NotFoundException)
+        throw new UnprocessableEntityException();
       throw error;
     }
   }
@@ -94,7 +108,8 @@ export class FavoritesController {
 
   // Helper method to validate UUID format
   private isValidUUID(id: string): boolean {
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    const uuidRegex =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     return uuidRegex.test(id);
   }
 }

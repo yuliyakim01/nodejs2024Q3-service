@@ -18,8 +18,28 @@ import { FavoritesController } from './controllers/favoritesController';
 import { FavoritesService } from './services/favoritesService';
 
 @Module({
-  imports: [UsersModule, ArtistsModule, AlbumsModule, TracksModule, FavoritesModule],
-  controllers: [AppController, UsersController, ArtistsController, AlbumsController, TracksController, FavoritesController],
-  providers: [AppService, UsersService, ArtistsService, AlbumsService, TracksService, FavoritesService],
+  imports: [
+    UsersModule,
+    ArtistsModule,
+    AlbumsModule,
+    TracksModule,
+    FavoritesModule,
+  ],
+  controllers: [
+    AppController,
+    UsersController,
+    ArtistsController,
+    AlbumsController,
+    TracksController,
+    FavoritesController,
+  ],
+  providers: [
+    AppService,
+    UsersService,
+    ArtistsService,
+    AlbumsService,
+    TracksService,
+    FavoritesService,
+  ],
 })
 export class AppModule {}
